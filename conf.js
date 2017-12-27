@@ -4,7 +4,7 @@ require("babel-register")({
 });
 
 exports.config = {
-    baseURL: 'http://my.outbrain.com',
+    baseUrl: 'http://my.outbrain.com',
     seleniumAddress: 'http://localhost:4444/wd/hub',
     specs: ['specs/**/*.spec.js'],
     framework: 'jasmine',

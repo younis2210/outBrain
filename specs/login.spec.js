@@ -1,4 +1,7 @@
-const login = require('../pages/LoginPage');
+const login = require('../pages/login.page');
+const fakeMail = 'a@a.com'
+const realMail = 'younis.2210@gmail.com'
+const realPass = 'Welcome!@34'
 
 describe('Load the login page', function() {
 
@@ -10,8 +13,19 @@ describe('Load the login page', function() {
 
 describe('Login to the app with empty password', function() {
 
-    it('Should Login', function() {
-        login.enterUserName('a@a.com');
-        expect(login.getEmail()).toEqual('Login to your account');
+    it('Should fail to Login', function() {
+        login.enterUserName(fakeMail);
+        login.pressLoginBtn()
+        expect(login.getErrorMessage()).toEqual('wrong email or password');
+    })
+});
+
+describe('Login to the app with real user', function() {
+
+    it('Should fail to Login', function() {
+        login.enterUserName(realMail);
+        login.enterPassword(realPass);
+        login.pressLoginBtn()
+        expect(login.getErrorMessage()).toEqual('wrong email or password');
     })
 });
