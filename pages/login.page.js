@@ -9,6 +9,9 @@ const LoginPage = function() {
    const userNameField = element(by.id('signin-member-username'));
    const passwordField = element(by.id('signin-member-password'));
    const loginButton = element(by.id('loginButton'));
+   const rememberCheckbox = element(by.css("label[for='signin-member-remember']"));
+   const userMenu = element(by.id('welcome-user'));
+   const robotMessage = element(by.id('recaptcha-anchor'));
 
     /**
      * navigate to the login page
@@ -44,12 +47,27 @@ const LoginPage = function() {
         loginButton.click()
     };
 
-    this.presenceOfLoginElements = function() {
-        return myElement.isPresent()
+    this.checkBorderColorPurple = function() {
+        userNameField.getCssValue('border-top-color').then(function(borderColor) {
+            return borderColor;
+        });
     };
 
-    this.getUserNameText = function() {
-        return userNameField;
+    this.validateUserInHomePage = function () {
+        return userMenu.isDisplayed();
+    }
+
+    /* this method for testing CAPTCHA */
+    // this.closeRobotMsg = function () {
+    //     console.log(robotMessage.position)
+    //     browser.wait(until.presenceOf(robotMessage), 1000);
+    //     if (robotMessage.isDisplayed()) {
+    //         robotMessage.click();
+    //     }
+    // }
+
+    this.checkCheckbox = function() {
+        rememberCheckbox.click();
     };
 };
 
