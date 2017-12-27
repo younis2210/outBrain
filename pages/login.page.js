@@ -12,13 +12,13 @@ const LoginPage = function() {
    const rememberCheckbox = element(by.css("label[for='signin-member-remember']"));
    const userMenu = element(by.id('welcome-user'));
    const robotMessage = element(by.id('recaptcha-anchor'));
-
+   const workingArea = element(by.id('working-area'));
     /**
      * navigate to the login page
      */
     this.navigateToApp = function() {
         browser.get('/');
-        browser.wait(until.presenceOf(loginHeader), 1000)
+        browser.wait(until.presenceOf(loginHeader), 1000);
     };
 
     this.getSignInHeader = function() {
@@ -47,10 +47,12 @@ const LoginPage = function() {
         loginButton.click()
     };
 
-    this.checkBorderColorPurple = function() {
-        userNameField.getCssValue('border-top-color').then(function(borderColor) {
+    this.checkBorderColorRed = function() {
+        var rgbArray;
+        rgbArray = userNameField.getCssValue('border-bottom-color').then(function(borderColor) {
             return borderColor;
         });
+        return rgbArray;
     };
 
     this.validateUserInHomePage = function () {
@@ -68,6 +70,10 @@ const LoginPage = function() {
 
     this.checkCheckbox = function() {
         rememberCheckbox.click();
+    };
+
+    this.validateWorkingAreaLoaded = function() {
+        return workingArea.isDisplayed();
     };
 };
 

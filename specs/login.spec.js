@@ -23,10 +23,6 @@ describe('Login to the app with empty password', function() {
         login.pressLoginBtn()
         expect(login.getErrorMessage()).toEqual('wrong email or password');
     })
-    afterEach(function() {
-        browser.executeScript('window.sessionStorage.clear();');
-        browser.executeScript('window.localStorage.clear();');
-    });
 });
 
 describe('Check fields border after wrong password', function() {
@@ -35,26 +31,26 @@ describe('Check fields border after wrong password', function() {
         login.enterUserName(realMail);
         login.enterPassword(fakePass);
         login.pressLoginBtn()
-        expect(login.checkBorderColorPurple()).toEqual('rgba(199, 198, 196, 1)');
+        login.checkBorderColorRed().then(function(colorArray) {
+            expect(colorArray).toEqual('rgba(190, 54, 85, 1)');
+        });
         expect(login.getErrorMessage()).toEqual('wrong email or password');
     })
 });
 
-describe('Login to the app with real user fake pass', function() {
-
-    it('Should fail to Login', function() {
-        login.enterUserName(realMail);
-        login.enterPassword(fakePass);
-        login.pressLoginBtn()
-        expect(login.getErrorMessage()).toEqual('wrong email or password');
+describe('Click get started', function() {
+    it('Should navigate user to sign up', function() {
+        // Bug : need to fix finding label without id or class
+        // var dog = element(by.cssContainingText('.login-only-forgot', 'Get started'));
     })
 });
 
 describe('Login to the app with real user real pass', function() {
-    it('Should fail to Login', function() {
+    it('Should pass login to homepage ', function() {
         login.enterUserName(realMail);
         login.enterPassword(realPass);
         login.pressLoginBtn()
         expect(login.validateUserInHomePage(), 'user menu not displayed').toBe(true)
+        expect(login.validateWorkingAreaLoaded(), 'user menu create campaign not present').toBe(true)
     })
 });
