@@ -5,7 +5,7 @@ describe('Log In', function() {
 
     describe('Load the login page', function() {
 
-        it('Should Login', function() {
+        it('Log in page loaded and verified', function() {
             login.navigateToApp();
             login.checkCheckbox(); // just tapping the checkbox without validating
             expect(login.getSignInHeader()).toEqual('Login to your account');
