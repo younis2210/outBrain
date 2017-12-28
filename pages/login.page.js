@@ -14,6 +14,9 @@ const LoginPage = function() {
    const robotMessage = element(by.id('recaptcha-anchor'));
    const workingArea = element(by.id('working-area'));
    const newAccountBtn = $$('.register-forgot > label:nth-child(2) a');
+   const userMenuDrop = element(by.css('[ng-click="welcome.showUserMenu($event)"]'))
+   const logOutBtn = element(by.css('[ng-click="welcome.logout()"]'))
+
 
     /**
      * navigate to the login page
@@ -80,6 +83,12 @@ const LoginPage = function() {
 
     this.validateWorkingAreaLoaded = function() {
         return workingArea.isDisplayed();
+    };
+
+    this.signOut = function() {
+        userMenuDrop.click();
+        logOutBtn.click();
+        browser.wait(until.presenceOf(loginHeader), 1000);
     };
 };
 

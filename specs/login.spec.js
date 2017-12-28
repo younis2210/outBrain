@@ -1,56 +1,63 @@
 const login = require('../pages/login.page');
-const fakeMail = 'a@a.com'
-const realMail = 'younis.2210@gmail.com'
-const realPass = 'Welcome!@34';
-const fakePass = 'aaaa';
+const globals = require('../globals/globals');
 
-describe('Load the login page', function() {
+describe('Log In', function() {
 
-    it('Should Login', function() {
-        login.navigateToApp();
-        login.checkCheckbox(); // just tapping the checkbox whiout validating
-        expect(login.getSignInHeader()).toEqual('Login to your account');
-    })
-});
+    describe('Load the login page', function() {
 
-describe('Login to the app with empty password', function() {
-    /* Killing the captcha before each test */
-    // beforeAll(function () {
-    //     login.closeRobotMsg();
-    // });
-    it('Should fail to Login', function() {
-        login.enterUserName(fakeMail);
-        login.pressLoginBtn()
-        expect(login.getErrorMessage()).toEqual('wrong email or password');
-    })
-});
+        it('Should Login', function() {
+            login.navigateToApp();
+            login.checkCheckbox(); // just tapping the checkbox without validating
+            expect(login.getSignInHeader()).toEqual('Login to your account');
+        })
+    });
 
-describe('Check fields border after wrong password', function() {
+    describe('Login to the app with empty password', function() {
+        /* Killing the captcha before each test */
+        // beforeAll(function () {
+        //     login.closeRobotMsg();
+        // });
+        it('Should fail to Login', function() {
+            login.enterUserName(globals.fakeMail);
+            login.pressLoginBtn();
+            expect(login.getErrorMessage()).toEqual('wrong email or password');
+        })
+    });
 
-    it('Should fail to Login', function() {
-        login.enterUserName(realMail);
-        login.enterPassword(fakePass);
-        login.pressLoginBtn()
-        login.checkBorderColorRed().then(function(colorArray) {
-            expect(colorArray).toEqual('rgba(190, 54, 85, 1)');
-        });
-        expect(login.getErrorMessage()).toEqual('wrong email or password');
-    })
-});
+    describe('Check fields border after wrong password', function() {
 
-describe('Click get started', function() {
-    it('Should navigate user to sign up', function() {
-        // Bug : need to fix finding label without id or class
-        // var dog = element(by.cssContainingText('.login-only-forgot', 'Get started'));
-    })
-});
+        it('Should fail to Login', function() {
+            login.enterUserName(globals.realMail);
+            login.enterPassword(globals.fakePass);
+            login.pressLoginBtn();
+            login.checkBorderColorRed().then(function(colorArray) {
+                expect(colorArray).toEqual('rgba(190, 54, 85, 1)');
+            });
+            expect(login.getErrorMessage()).toEqual('wrong email or password');
+        })
+    });
 
-describe('Login to the app with real user real pass', function() {
-    it('Should pass login to homepage ', function() {
-        login.enterUserName(realMail);
-        login.enterPassword(realPass);
-        login.pressLoginBtn()
-        expect(login.validateUserInHomePage(), 'user menu not displayed').toBe(true)
-        expect(login.validateWorkingAreaLoaded(), 'user menu create campaign not present').toBe(true)
-    })
+    describe('Click get started', function() {
+        it('Should navigate user to sign up', function() {
+            // Bug : need to fix finding label without id or class
+            // var dog = element(by.cssContainingText('.login-only-forgot', 'Get started'));
+        })
+    });
+
+    describe('Login to the app with real user real pass', function() {
+        it('Should pass login to homepage ', function() {
+            login.enterUserName(globals.realMail);
+            login.enterPassword(globals.realPass);
+            login.pressLoginBtn();
+            expect(login.validateUserInHomePage(), 'user menu not displayed').toBe(true);
+            expect(login.validateWorkingAreaLoaded(), 'user menu create campaign not present').toBe(true);
+        })
+    });
+
+    describe('sign out after all tests', function() {
+        it('user logged out and directed to login page ', function() {
+            login.signOut();
+            expect(login.getSignInHeader()).toEqual('Login to your account');
+        })
+    });
 });
