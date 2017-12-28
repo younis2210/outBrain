@@ -13,6 +13,8 @@ const LoginPage = function() {
    const userMenu = element(by.id('welcome-user'));
    const robotMessage = element(by.id('recaptcha-anchor'));
    const workingArea = element(by.id('working-area'));
+   const newAccountBtn = $$('.register-forgot > label:nth-child(2) a');
+
     /**
      * navigate to the login page
      */
@@ -23,6 +25,10 @@ const LoginPage = function() {
 
     this.getSignInHeader = function() {
         return loginHeader.getText();
+    };
+
+    this.clickGetStarted = function () {
+        newAccountBtn.click();
     };
 
     this.getErrorMessage = function() {
