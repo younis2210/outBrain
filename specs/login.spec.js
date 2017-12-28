@@ -37,13 +37,6 @@ describe('Log In', function() {
         })
     });
 
-    describe('Click get started', function() {
-        it('Should navigate user to sign up', function() {
-            // Bug : need to fix finding label without id or class
-            // var dog = element(by.cssContainingText('.login-only-forgot', 'Get started'));
-        })
-    });
-
     describe('Login to the app with real user real pass', function() {
         it('Should pass login to homepage ', function() {
             login.enterUserName(globals.realMail);
