@@ -1,4 +1,4 @@
-# outBrain
+# outBrain Asignments
 Automated tests for login page, in PO architicture. 
 
 This is a home assignment for OutBrain company, automated test cases for login page. 
